@@ -17,7 +17,7 @@ def show_webcam(mirror=False):
 
 show_webcam(mirror=True)
 
-foreground = cv2.imread("puppets.png")
+foreground = cv2.imread("descarga.png")
 foreground = cv2.resize(foreground, (1040,585))
 background = cv2.imread("ocean.png")
 background = cv2.resize(background, (1040,585))
