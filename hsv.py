@@ -30,4 +30,7 @@ while(1):
     if k == 27:
         break
 
+
+        #dilatar y erosionar
+
 cv2.destroyAllWindows()
