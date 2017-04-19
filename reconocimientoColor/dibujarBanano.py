@@ -73,15 +73,22 @@ def draw_banana(image):
 	mask=mask1+mask2
 
 	kernel=cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(15,15))
+	#print kernel solo muestra un puunto
+	#cambiar los parametros (15,15) solo cambia el grosor de la linea de la elipse
+	# cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(15,15)).getRadius no esta disponible en cv2
+
 
 	mask_closed=cv2.morphologyEx(mask,cv2.MORPH_CLOSE,kernel)
+
 	mask_cleaned=cv2.morphologyEx(mask_closed,cv2.MORPH_OPEN,kernel)
 
 	big_contour,mask_fruit=find_biggest_contour(mask_cleaned)
 
 	overlay=overlay_mask(mask_cleaned,image)
+	#print overlay solo mustra el banano sin la elipse
 
 	circled=circle_contour(overlay,big_contour)
+	#circled es el banano con un overlay aplicado
 
 	show(circled)
 
