@@ -4,6 +4,7 @@ import numpy as np
 #import numpy for scientific calculations
 from matplotlib import pyplot as plt
 #display the image
+from PIL import Image
 
 
 green=(0,255,0)
@@ -34,11 +35,11 @@ def circle_contour(image,contour):
 	ellipse=cv2.fitEllipse(contour)
 	print (contour[0])
 	global centros
-	global angulos
-	global tam
+	global distancias
+	global angulo
 	centros = ellipse[0]
-	angulos = ellipse[1]
-	tam = ellipse[2]
+	distancias = ellipse[1]
+	angulo = ellipse[2]
 
 	cv2.ellipse(image_with_ellipse,ellipse,green,2,1)
 
@@ -110,6 +111,11 @@ def draw_banana(image):
 banana=cv2.imread('banana.jpg')
 result_banana=draw_banana(banana)
 cv2.imwrite('banana_new.jpg',result_banana)
-print ("Centros		",centros)
-print ("Distancias	",angulos)
-print ("Angulos		",tam)
+print ("Centro		",centros)
+print ("Distancias	",distancias)
+print ("Angulo		",angulo)
+
+
+rotImg = Image.open("banana_new.jpg")
+rotImg2 = rotImg.rotate(angulo)
+rotImg2.save("img2.jpg")
