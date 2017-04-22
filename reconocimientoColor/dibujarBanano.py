@@ -31,8 +31,14 @@ def overlay_mask(mask,image):
 def circle_contour(image,contour):
 
 	image_with_ellipse=image.copy()
-
 	ellipse=cv2.fitEllipse(contour)
+	print (contour[0])
+	global centros
+	global angulos
+	global tam
+	centros = ellipse[0]
+	angulos = ellipse[1]
+	tam = ellipse[2]
 
 	cv2.ellipse(image_with_ellipse,ellipse,green,2,1)
 
@@ -89,6 +95,10 @@ def draw_banana(image):
 
 	circled=circle_contour(overlay,big_contour)
 	#circled es el banano con un overlay aplicado
+	#print (circled.shape)
+	#print (circled)
+
+
 
 	show(circled)
 
@@ -100,3 +110,6 @@ def draw_banana(image):
 banana=cv2.imread('banana.jpg')
 result_banana=draw_banana(banana)
 cv2.imwrite('banana_new.jpg',result_banana)
+print ("Centros		",centros)
+print ("Distancias	",angulos)
+print ("Angulos		",tam)
