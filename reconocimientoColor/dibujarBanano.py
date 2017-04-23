@@ -119,3 +119,12 @@ print ("Angulo		",angulo)
 rotImg = Image.open("banana_new.jpg")
 rotImg2 = rotImg.rotate(angulo)
 rotImg2.save("img2.jpg")
+width, height = rotImg2.size
+centerx = width/2
+centery = height/2
+posx = centerx - 0.5*distancias[0]
+posy = centery - 0.5*distancias[1]
+#crop_img = rotImg2[posx:posy, width:height] # Crop from x, y, w, h -> 100, 200, 300, 400
+# NOTE: its img[y: y + h, x: x + w] and *not* img[x: x + w, y: y + h]
+#cv2.imshow("cropped", crop_img)
+#cv2.waitKey(0)
