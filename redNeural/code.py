@@ -7,11 +7,11 @@ def NN_for_234_hidden_node():
     Train a neural net work for one hiden layer and 2, 3, 4 hidden nodes,
     then plot and compare sum of squared error for different design
     '''
-  
-    inputs = np.eye(8) # Create the input and target
+
+    inputs = np.eye(3) # Create the input and target
     inp = inputs[2] # input used to test the neural network
-    inp = inp.reshape(1,8) # transform inp from one row to 8 row 1 column
-    inputs = np.delete(inputs , 5, 0) # delete 0000 0100
+    inp = inp.reshape(1,3) # transform inp from one row to 8 row 1 column
+    #inputs = np.delete(inputs , 5, 0) # delete 0000 0100
     print(inputs)
     error = []
  # node_number denote the number of nodes in hiden layer.
