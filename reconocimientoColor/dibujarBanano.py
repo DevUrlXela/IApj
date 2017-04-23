@@ -4,6 +4,7 @@ import numpy as np
 #import numpy for scientific calculations
 from matplotlib import pyplot as plt
 #display the image
+from PIL import Image
 
 
 green=(0,255,0)
@@ -31,8 +32,14 @@ def overlay_mask(mask,image):
 def circle_contour(image,contour):
 
 	image_with_ellipse=image.copy()
-
 	ellipse=cv2.fitEllipse(contour)
+	print (contour[0])
+	global centros
+	global distancias
+	global angulo
+	centros = ellipse[0]
+	distancias = ellipse[1]
+	angulo = ellipse[2]
 
 	cv2.ellipse(image_with_ellipse,ellipse,green,2,1)
 
@@ -89,6 +96,10 @@ def draw_banana(image):
 
 	circled=circle_contour(overlay,big_contour)
 	#circled es el banano con un overlay aplicado
+	#print (circled.shape)
+	#print (circled)
+
+
 
 	show(circled)
 
@@ -100,3 +111,47 @@ def draw_banana(image):
 banana=cv2.imread('banana.jpg')
 result_banana=draw_banana(banana)
 cv2.imwrite('banana_new.jpg',result_banana)
+print ("Centro		",centros)
+print ("Distancias	",distancias)
+print ("Angulo		",angulo)
+
+
+rotImg = Image.open("banana_new.jpg")
+rotImg2 = rotImg.rotate(angulo)
+rotImg2.save("img2.jpg")
+width, height = rotImg2.size
+centerx = width/2
+centery = height/2
+posx1 = int(centerx - 0.5*distancias[0])
+posy1 = int(centery - 0.5*distancias[1])
+posx2 = int(centerx + 0.5*distancias[0])
+posy2 = int(centerx + 0.5*distancias[1])
+#crop_img = rotImg2[posx:posy, width:height] # Crop from x, y, w, h -> 100, 200, 300, 400
+# NOTE: its img[y: y + h, x: x + w] and *not* img[x: x + w, y: y + h]
+#cv2.imshow("cropped", crop_img)
+#cv2.waitKey(0)
+
+
+imagen = cv2.imread("banana_new.jpg")
+const = 3
+width = np.size(imagen, 0)
+height = np.size(imagen, 1)
+porcentualx = int(height * 0.5)
+porcentualy = int(width * 0.5)
+difh = height - porcentualy
+difw = width - porcentualx
+
+print ("height      ",height)
+print ("width       ",width)
+print ("porcentualx ",porcentualx)
+print ("porcentualy ",porcentualy)
+print ("diferenciah ",difh)
+print ("diferenciaw ",difw)
+
+#crop_img = imagen[porcentualx:porcentualy, difh:difw] # Crop from x, y, w, h -> 100, 200, 300, 400
+crop_img = imagen[posx1:posx2, posy1:posy2] # Crop from x, y, w, h -> 100, 200, 300, 400
+# NOTE: its img[y: y + h, x: x + w] and *not* img[x: x + w, y: y + h]
+print ("pasa")
+cv2.imwrite("cropped.jpeg", crop_img)
+# cv2.imshow("cropped", crop_img)
+# cv2.waitKey(0)
