@@ -117,7 +117,7 @@ def cortar():
 
 	cv2.imwrite('cortar.jpg',crop_img)
 	ban=cv2.imread('cortar.jpg')
-	resized_image = cv2.resize(ban,(50, 50))
+	resized_image = cv2.resize(ban,(70, 70))
 	cv2.imwrite('cortar.jpg',resized_image)
 
 
