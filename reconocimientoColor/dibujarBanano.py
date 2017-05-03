@@ -122,6 +122,8 @@ rotImg2.save("img2.jpg")
 width, height = rotImg2.size
 centerx = width/2
 centery = height/2
+centerx = centros[0]
+centery = centros[1]
 posx1 = int(centerx - 0.5*distancias[0])
 posy1 = int(centery - 0.5*distancias[1])
 posx2 = int(centerx + 0.5*distancias[0])
