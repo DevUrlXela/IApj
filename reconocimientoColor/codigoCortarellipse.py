@@ -5,7 +5,6 @@ import numpy as np
 from matplotlib import pyplot as plt
 #display the image
 from PIL import Image
-from scipy import ndimage
 
 
 green=(0,255,0)
@@ -71,12 +70,13 @@ def draw_banana(image):
 
 	image_blur_hsv=cv2.cvtColor(image_blur,cv2.COLOR_RGB2HSV)
 
-	min_color=np.array([20,50,50])
+	min_color=np.array([0,92,84])
+	#min_color=np.array([0,224,0])
 	max_color=np.array([30,256,256])
 
 	mask1=cv2.inRange(image_blur_hsv,min_color,max_color)
 
-	min_color2=np.array([60,50,50])
+	min_color2=np.array([100,150,150])
 	max_color2=np.array([70,256,256])
 
 	mask2=cv2.inRange(image_blur_hsv,min_color2,max_color2)
@@ -111,23 +111,23 @@ def draw_banana(image):
 def cortar():
 	img = cv2.imread("banana_new.jpg")
 	print(centros)
-	crop_img = img[ (int(centros[1])-(int(distancias[1]*0.25))):(int(centros[1])+(int(distancias[1]*0.25))), (int(centros[0])-(int(distancias[0]*0.25))):(int(centros[0])+(int(distancias[0]*0.25)))                     ]
+	crop_img = img[ (int(centros[1])-(int(distancias[1]*0.5))):(int(centros[1])+(int(distancias[1]*0.5))), (int(centros[0])-(int(distancias[0]*0.5))):(int(centros[0])+(int(distancias[0]*0.5)))                     ]
 	 # Crop from x, y, w, h -> 100, 200, 300, 400
 	# NOTE: its img[y: y + h, x: x + w] and *not* img[x: x + w, y: y + h]
-
 	cv2.imwrite('cortar.jpg',crop_img)
-	ban=cv2.imread('cortar.jpg')
-	resized_image = cv2.resize(ban,(70, 70))
-	cv2.imwrite('cortar.jpg',resized_image)
+
+
 
 
 banana=cv2.imread('banana.jpg')
 result_banana=draw_banana(banana)
 cv2.imwrite('banana_new.jpg',result_banana)
 #imagen girada por el angulo de la primera elipse encontrada
-rotacion = ndimage.rotate(banana, angulo)
-cv2.imwrite('img3.jpg',rotacion)#se crea la segunda ellipse rotada 0 en su angulo
-bananaRotada=cv2.imread('img3.jpg')
+rotImg = Image.open("banana.jpg")
+rotImg2 = rotImg.rotate(angulo)
+rotImg2.save("img2.jpg")
+#se crea la segunda ellipse rotada 0 en su angulo
+bananaRotada=cv2.imread('img2.jpg')
 result_banana=draw_banana(bananaRotada)
 cv2.imwrite('banana_new.jpg',result_banana)
 cortar()
