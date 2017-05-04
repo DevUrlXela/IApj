@@ -72,11 +72,11 @@ def draw_banana(image):
 	image=cv2.resize(image,None,fx=scale,fy=scale)
 	image_blur=cv2.GaussianBlur(image,(7,7),0)
 	image_blur_hsv=cv2.cvtColor(image_blur,cv2.COLOR_RGB2HSV)
-	min_color=np.array([20,50,50])
-	max_color=np.array([30,256,256])
+	min_color=np.array([15,100,80])
+	max_color=np.array([105,255,255])
 	mask1=cv2.inRange(image_blur_hsv,min_color,max_color)
-	min_color2=np.array([60,50,50])
-	max_color2=np.array([70,256,256])
+	min_color2=np.array([170,100,80])
+	max_color2=np.array([180,255,255])
 	mask2=cv2.inRange(image_blur_hsv,min_color2,max_color2)
 	mask=mask1+mask2
 	kernel=cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(15,15))
@@ -109,7 +109,7 @@ def cortar():
 	cv2.imwrite('cortar.jpg',resized_image)
 
 
-banana=cv2.imread('banana.jpg')
+banana=cv2.imread('banana1.jpg')
 result_banana=draw_banana(banana)
 cv2.imwrite('banana_new.jpg',result_banana)
 #imagen girada por el angulo de la primera elipse encontrada
