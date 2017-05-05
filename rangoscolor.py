@@ -35,6 +35,7 @@ etapamedia = (
 'palegoldenrod',
 'khaki',
 'darkkhaki',
+'goldenrod'
 )
 
 
@@ -83,7 +84,7 @@ def get_colour_name(requested_colour):
         actual_name = None
     return actual_name, closest_name
 
-requested_colour = (0, 0, 0)
+requested_colour = (199, 176, 44)
 actual_name, closest_name = get_colour_name(requested_colour)
 
 print ("Actual colour name:", actual_name, ", closest colour name:", closest_name)

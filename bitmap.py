@@ -3,6 +3,64 @@ import numpy as np
 import webcolors as webcolors
 
 
+primeraetapa = (
+'darkolivegreen',
+'olivedrab',
+'olive',
+'yellowgreen',
+'limegreen',
+'lime',
+'lawngreen',
+'chartreuse',
+'greenyellow',
+'springgreen',
+'mediumspringgreen',
+'lightgreen',
+'palegreen',
+'darkseagreen',
+'mediumaquamarine',
+'mediumseagreen',
+'seagreen',
+'forestgreen',
+'green',
+'darkgreen'
+)
+
+
+etapamedia = (
+'yellow',
+'lightyellow',
+'lemonchiffon',
+'lightgoldenrodyellow',
+'papayawhip',
+'moccasin',
+'peachpuff',
+'palegoldenrod',
+'khaki',
+'darkkhaki',
+'goldenrod',
+)
+
+
+etapafinal = (
+'darkgoldenrod',
+'peru',
+'chocolate',
+'saddlebrown',
+'sienna',
+'brown',
+'maroon',
+'silver',
+'darkgray',
+'gray',
+'dimgray',
+'lightslategray',
+'slategray',
+'darkslategray',
+'black'
+)
+
+
 def displayImage(image):
     displayList=np.array(image).T
     im1 = Image.fromarray(displayList)
@@ -56,13 +114,42 @@ width, height = im.size
 # print (width)
 # print (height)
 
+contN = 0
+contV = 0
+contA = 0
 
 for dato in range(4900):
     actual_name, closest_name = get_colour_name(pixels[dato])
-    buscarDato(closest_name)
-        #print(actual_name)
+    # buscarDato(closest_name)
+    #print(actual_name)
+    for iterador in range(len(etapafinal)):
+        if closest_name is etapafinal[iterador]:
+            #negro = True
+            contN += 1
+
+    for iterador in range(len(etapamedia)):
+        if closest_name is etapamedia[iterador]:
+            #amarillo = True
+            contA += 1
+
+    for iterador in range(len(primeraetapa)):
+        if closest_name is primeraetapa[iterador]:
+            #verde = True
+            contV += 1
+
+#print ("Verdes: ",contV)
+#print ("Amarillos: ",contA)
+#print ("Negros: ",contN)
+
+contV = (contV * 100) / 4900
+contA = (contA * 100) / 4900
+contN = (contN * 100) / 4900
+
+print ("Verdes: ","%.2f" %contV + "%")
+print ("Amarillos: ","%.2f" %contA + "%")
+print ("Negros: ","%.2f" %contN + "%")
 
 
     #print ("Actual colour name:", actual_name, ", closest colour name:", closest_name)
-print (lista_nombreReal)
-print(len(lista_nombreReal))
+#print (lista_nombreReal)
+#print(len(lista_nombreReal))
