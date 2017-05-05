@@ -1,7 +1,7 @@
 from PIL import Image
 import numpy as np
 import webcolors as webcolors
-
+from os import listdir
 
 redcolors = (
 'lightsalmon',
@@ -117,29 +117,12 @@ def get_colour_name(requested_colour):
     return actual_name, closest_name
 
 
-def buscarDato(nombre):
-    cont=0
-    for dato in lista_nombreReal:
-        if dato  == nombre:
-            cont = 1
-    if cont != 1:
-        lista_nombreReal.append(nombre)
 
 
 im2 = Image.open('reconocimientoColor/cortar.jpg')
 im = im2.convert("RGB")
-global lista_nombreReal
-global lista_nombreCercano
-
-lista_nombreReal = ['hola']
-
 
 pixels = list(im.getdata())
-width, height = im.size
-
-# print (width)
-# print (height)
-
 contRed = 0
 contOrange = 0
 contDarkGreen = 0
@@ -196,6 +179,7 @@ contBrown = (contBrown * 100) / 4900
 contBlack = (contBlack * 100) / 4900
 
 
+arrayFotos = []
 print ("Rojo:               ","%.2f" %contRed + "%")
 print ("Naranja:            ","%.2f" %contOrange + "%")
 print ("Verde Oscuro:       ","%.2f" %contDarkGreen + "%")
@@ -205,6 +189,10 @@ print ("Amarillo Oscuro:    ","%.2f" %contDarkYellow + "%")
 print ("Cafe:               ","%.2f" %contBrown + "%")
 print ("Negro:              ","%.2f" %contBlack + "%")
 
-#print ("Actual colour name:", actual_name, ", closest colour name:", closest_name)
-#print (lista_nombreReal)
-#print(len(lista_nombreReal))
+
+for cosa in listdir("."):
+    if cosa[-4:] == ".jpg":
+        arrayFotos.append(cosa)
+
+for iterador in range(len(arrayFotos)):
+    print (arrayFotos[iterador])
