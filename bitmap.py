@@ -3,20 +3,33 @@ import numpy as np
 import webcolors as webcolors
 
 
-primeraetapa = (
+redcolors = (
+'lightsalmon',
+'salmon',
+'darksalmon',
+'lightcoral',
+'indianred',
+'crimson',
+'firebrick',
+'darkred',
+'red'
+)
+
+orangecolors = (
+'orangered',
+'tomato',
+'coral',
+'darkorange',
+'orange'
+)
+
+
+verdeOscuro = (
 'darkolivegreen',
-'olivedrab',
 'olive',
+'olivedrab',
 'yellowgreen',
 'limegreen',
-'lime',
-'lawngreen',
-'chartreuse',
-'greenyellow',
-'springgreen',
-'mediumspringgreen',
-'lightgreen',
-'palegreen',
 'darkseagreen',
 'mediumaquamarine',
 'mediumseagreen',
@@ -27,14 +40,30 @@ primeraetapa = (
 )
 
 
-etapamedia = (
-'yellow',
+verdeClaro = (
+'lime',
+'lawngreen',
+'chartreuse',
+'greenyellow',
+'springgreen',
+'mediumspringgreen',
+'lightgreen',
+'palegreen'
+)
+
+
+amarillosC = (
 'lightyellow',
 'lemonchiffon',
 'lightgoldenrodyellow',
 'papayawhip',
 'moccasin',
 'peachpuff',
+)
+
+amarillosO = (
+'yellow',
+'lightyellow',
 'palegoldenrod',
 'khaki',
 'darkkhaki',
@@ -42,7 +71,7 @@ etapamedia = (
 )
 
 
-etapafinal = (
+brown = (
 'darkgoldenrod',
 'peru',
 'chocolate',
@@ -50,6 +79,9 @@ etapafinal = (
 'sienna',
 'brown',
 'maroon',
+)
+
+black = (
 'silver',
 'darkgray',
 'gray',
@@ -94,12 +126,6 @@ def buscarDato(nombre):
         lista_nombreReal.append(nombre)
 
 
-
-
-
-
-
-
 im2 = Image.open('reconocimientoColor/cortar.jpg')
 im = im2.convert("RGB")
 global lista_nombreReal
@@ -114,41 +140,70 @@ width, height = im.size
 # print (width)
 # print (height)
 
-contN = 0
-contV = 0
-contA = 0
+contRed = 0
+contOrange = 0
+contDarkGreen = 0
+contLightGreen = 0
+contLightYellow = 0
+contDarkYellow = 0
+contBrown = 0
+contBlack = 0
 
 for dato in range(4900):
     actual_name, closest_name = get_colour_name(pixels[dato])
     # buscarDato(closest_name)
     #print(actual_name)
-    for iterador in range(len(etapafinal)):
-        if closest_name is etapafinal[iterador]:
-            #negro = True
-            contN += 1
+    for iterador in range(len(redcolors)):
+        if closest_name is redcolors[iterador]:
+            contRed += 1
 
-    for iterador in range(len(etapamedia)):
-        if closest_name is etapamedia[iterador]:
-            #amarillo = True
-            contA += 1
+    for iterador in range(len(orangecolors)):
+        if closest_name is orangecolors[iterador]:
+            contOrange += 1
 
-    for iterador in range(len(primeraetapa)):
-        if closest_name is primeraetapa[iterador]:
-            #verde = True
-            contV += 1
+    for iterador in range(len(verdeOscuro)):
+        if closest_name is verdeOscuro[iterador]:
+            contDarkGreen += 1
 
-#print ("Verdes: ",contV)
-#print ("Amarillos: ",contA)
-#print ("Negros: ",contN)
+    for iterador in range(len(verdeClaro)):
+        if closest_name is verdeClaro[iterador]:
+            contLightGreen += 1
 
-contV = (contV * 100) / 4900
-contA = (contA * 100) / 4900
-contN = (contN * 100) / 4900
+    for iterador in range(len(amarillosC)):
+        if closest_name is amarillosC[iterador]:
+            contLightYellow += 1
 
-print ("Verdes: ","%.2f" %contV + "%")
-print ("Amarillos: ","%.2f" %contA + "%")
-print ("Negros: ","%.2f" %contN + "%")
+    for iterador in range(len(amarillosO)):
+        if closest_name is amarillosO[iterador]:
+            contDarkYellow += 1
 
+    for iterador in range(len(brown)):
+        if closest_name is brown[iterador]:
+            contBrown += 1
+
+    for iterador in range(len(black)):
+        if closest_name is black[iterador]:
+            contBlack += 1
+
+
+contRed = (contRed * 100) / 4900
+contOrange = (contOrange * 100) / 4900
+contDarkGreen = (contDarkGreen * 100) / 4900
+contLightGreen = (contLightGreen * 100) / 4900
+contLightYellow = (contLightYellow * 100) / 4900
+contDarkYellow = (contDarkYellow * 100) / 4900
+contBrown = (contBrown * 100) / 4900
+contBlack = (contBlack * 100) / 4900
+
+
+print ("Rojo:               ","%.2f" %contRed + "%")
+print ("Naranja:            ","%.2f" %contOrange + "%")
+print ("Verde Oscuro:       ","%.2f" %contDarkGreen + "%")
+print ("Verde Claro:        ","%.2f" %contLightGreen + "%")
+print ("Amarillo Claro:     ","%.2f" %contLightYellow + "%")
+print ("Amarillo Oscuro:    ","%.2f" %contDarkYellow + "%")
+print ("Cafe:               ","%.2f" %contBrown + "%")
+print ("Negro:              ","%.2f" %contBlack + "%")
 
 #print ("Actual colour name:", actual_name, ", closest colour name:", closest_name)
 #print (lista_nombreReal)
