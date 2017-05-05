@@ -3,6 +3,7 @@ import webcolors
 primeraetapa = (
 'darkolivegreen',
 'olivedrab',
+'olive',
 'yellowgreen',
 'limegreen',
 'lime',
@@ -33,7 +34,7 @@ etapamedia = (
 'peachpuff',
 'palegoldenrod',
 'khaki',
-'darkkhaki'
+'darkkhaki',
 )
 
 
@@ -56,7 +57,12 @@ etapafinal = (
 )
 
 
-
+negro = False
+verde = False
+amarillo = False
+contN = 0
+contV = 0
+contA = 0
 
 
 def closest_colour(requested_colour):
@@ -77,7 +83,29 @@ def get_colour_name(requested_colour):
         actual_name = None
     return actual_name, closest_name
 
-requested_colour = (238, 232, 170)
+requested_colour = (0, 0, 0)
 actual_name, closest_name = get_colour_name(requested_colour)
 
 print ("Actual colour name:", actual_name, ", closest colour name:", closest_name)
+
+
+for iterador in range(len(etapafinal)):
+    if closest_name is etapafinal[iterador]:
+        negro = True
+        contN += 1
+
+for iterador in range(len(etapamedia)):
+    if closest_name is etapamedia[iterador]:
+        amarillo = True
+        contA += 1
+
+for iterador in range(len(primeraetapa)):
+    if closest_name is primeraetapa[iterador]:
+        verde = True
+        contV += 1
+
+
+negro, verde, amarillo  = False, False, False
+# print (contV)
+# print (contA)
+# print (contN)
