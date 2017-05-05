@@ -109,7 +109,7 @@ def cortar():
 	cv2.imwrite('cortar.jpg',resized_image)
 
 
-banana=cv2.imread('banana1.jpg')
+banana=cv2.imread('banana.jpg')
 result_banana=draw_banana(banana)
 cv2.imwrite('banana_new.jpg',result_banana)
 #imagen girada por el angulo de la primera elipse encontrada
