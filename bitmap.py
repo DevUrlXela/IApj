@@ -150,6 +150,6 @@ print ("Amarillos: ","%.2f" %contA + "%")
 print ("Negros: ","%.2f" %contN + "%")
 
 
-    #print ("Actual colour name:", actual_name, ", closest colour name:", closest_name)
+#print ("Actual colour name:", actual_name, ", closest colour name:", closest_name)
 #print (lista_nombreReal)
 #print(len(lista_nombreReal))
