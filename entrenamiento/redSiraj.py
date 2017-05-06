@@ -24,6 +24,8 @@ def nonlin(x, deriv=False):  # Note: there is a typo on this line in the video
     return 1/(1+np.exp(-x))  # Note: there is a typo on this line in the video
 
 
+
+np.set_printoptions(suppress=True)
 # The following code creates the input matrix. Although not mentioned in the video, the third column is for accommodating the bias term and is not part of the input.
 
 # In[25]:
@@ -156,7 +158,7 @@ syn1 = 2*np.random.random((44,6)) - 1  # 4x1 matrix of weights. (4 nodes x 1 out
 #training step
 # Python2 Note: In the follow command, you may improve
 #   performance by replacing 'range' with 'xrange'.
-for j in range(60000):
+for j in range(6):
 
     # Calculate forward through the network.
     l0 = X
@@ -170,8 +172,8 @@ for j in range(60000):
 
         print("Error: " + str(np.mean(np.abs(l2_error))))
 
-    if (j % 150) == 0:
-        erroresSum.append(np.mean(np.abs(l2_error)))
+    #if (j % 150) == 0:
+    erroresSum.append(np.mean(np.abs(l2_error)))
 
 
     l2_delta = l2_error*nonlin(l2, deriv=True)
@@ -198,6 +200,7 @@ print (syn1)
 # pl.grid(True)
 # pl.show()
 print (len(erroresSum))
+print("Error: " + str(np.mean(np.abs(l2_error))))
 
 pl.axhline(0, color="black")
 pl.axvline(0, color="black")
