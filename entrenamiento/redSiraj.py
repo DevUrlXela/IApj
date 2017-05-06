@@ -186,7 +186,9 @@ for j in range(60000):
 
 print("Output after training")
 print(l2)
+print ("\n\n\n Syn0: \n")
 print (syn0)
+print ("\n\n\n Syn1: \n")
 print (syn1)
 
 #
