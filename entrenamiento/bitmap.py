@@ -84,11 +84,17 @@ brown = (
 black = (
 'silver',
 'darkgray',
+'darkgrey',
+'grey',
 'gray',
 'dimgray',
+'dimgrey',
 'lightslategray',
+'lightslategrey',
 'slategray',
+'slategrey',
 'darkslategray',
+'darkslategrey',
 'black'
 )
 
