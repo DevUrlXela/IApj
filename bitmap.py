@@ -118,81 +118,100 @@ def get_colour_name(requested_colour):
 
 
 
-
-im2 = Image.open('reconocimientoColor/cortar.jpg')
-im = im2.convert("RGB")
-
-pixels = list(im.getdata())
-contRed = 0
-contOrange = 0
-contDarkGreen = 0
-contLightGreen = 0
-contLightYellow = 0
-contDarkYellow = 0
-contBrown = 0
-contBlack = 0
-
-for dato in range(4900):
-    actual_name, closest_name = get_colour_name(pixels[dato])
-    # buscarDato(closest_name)
-    #print(actual_name)
-    for iterador in range(len(redcolors)):
-        if closest_name is redcolors[iterador]:
-            contRed += 1
-
-    for iterador in range(len(orangecolors)):
-        if closest_name is orangecolors[iterador]:
-            contOrange += 1
-
-    for iterador in range(len(verdeOscuro)):
-        if closest_name is verdeOscuro[iterador]:
-            contDarkGreen += 1
-
-    for iterador in range(len(verdeClaro)):
-        if closest_name is verdeClaro[iterador]:
-            contLightGreen += 1
-
-    for iterador in range(len(amarillosC)):
-        if closest_name is amarillosC[iterador]:
-            contLightYellow += 1
-
-    for iterador in range(len(amarillosO)):
-        if closest_name is amarillosO[iterador]:
-            contDarkYellow += 1
-
-    for iterador in range(len(brown)):
-        if closest_name is brown[iterador]:
-            contBrown += 1
-
-    for iterador in range(len(black)):
-        if closest_name is black[iterador]:
-            contBlack += 1
-
-
-contRed = (contRed * 100) / 4900
-contOrange = (contOrange * 100) / 4900
-contDarkGreen = (contDarkGreen * 100) / 4900
-contLightGreen = (contLightGreen * 100) / 4900
-contLightYellow = (contLightYellow * 100) / 4900
-contDarkYellow = (contDarkYellow * 100) / 4900
-contBrown = (contBrown * 100) / 4900
-contBlack = (contBlack * 100) / 4900
-
-
 arrayFotos = []
-print ("Rojo:               ","%.2f" %contRed + "%")
-print ("Naranja:            ","%.2f" %contOrange + "%")
-print ("Verde Oscuro:       ","%.2f" %contDarkGreen + "%")
-print ("Verde Claro:        ","%.2f" %contLightGreen + "%")
-print ("Amarillo Claro:     ","%.2f" %contLightYellow + "%")
-print ("Amarillo Oscuro:    ","%.2f" %contDarkYellow + "%")
-print ("Cafe:               ","%.2f" %contBrown + "%")
-print ("Negro:              ","%.2f" %contBlack + "%")
-
 
 for cosa in listdir("."):
     if cosa[-4:] == ".jpg":
         arrayFotos.append(cosa)
 
 for iterador in range(len(arrayFotos)):
-    print (arrayFotos[iterador])
+    #print (arrayFotos[iterador])
+
+    im2 = Image.open(arrayFotos[iterador])
+    im = im2.convert("RGB")
+
+    pixels = list(im.getdata())
+    contRed = 0
+    contOrange = 0
+    contDarkGreen = 0
+    contLightGreen = 0
+    contLightYellow = 0
+    contDarkYellow = 0
+    contBrown = 0
+    contBlack = 0
+
+    for dato in range(4900):
+        actual_name, closest_name = get_colour_name(pixels[dato])
+        # buscarDato(closest_name)
+        #print(actual_name)
+        for iterador in range(len(redcolors)):
+            if closest_name is redcolors[iterador]:
+                contRed += 1
+
+        for iterador in range(len(orangecolors)):
+            if closest_name is orangecolors[iterador]:
+                contOrange += 1
+
+        for iterador in range(len(verdeOscuro)):
+            if closest_name is verdeOscuro[iterador]:
+                contDarkGreen += 1
+
+        for iterador in range(len(verdeClaro)):
+            if closest_name is verdeClaro[iterador]:
+                contLightGreen += 1
+
+        for iterador in range(len(amarillosC)):
+            if closest_name is amarillosC[iterador]:
+                contLightYellow += 1
+
+        for iterador in range(len(amarillosO)):
+            if closest_name is amarillosO[iterador]:
+                contDarkYellow += 1
+
+        for iterador in range(len(brown)):
+            if closest_name is brown[iterador]:
+                contBrown += 1
+
+        for iterador in range(len(black)):
+            if closest_name is black[iterador]:
+                contBlack += 1
+
+
+    contRed = (contRed * 100) / 4900
+    contOrange = (contOrange * 100) / 4900
+    contDarkGreen = (contDarkGreen * 100) / 4900
+    contLightGreen = (contLightGreen * 100) / 4900
+    contLightYellow = (contLightYellow * 100) / 4900
+    contDarkYellow = (contDarkYellow * 100) / 4900
+    contBrown = (contBrown * 100) / 4900
+    contBlack = (contBlack * 100) / 4900
+
+
+    print ("Rojo:               ","%.2f" %contRed + "%")
+    print ("Naranja:            ","%.2f" %contOrange + "%")
+    print ("Verde Oscuro:       ","%.2f" %contDarkGreen + "%")
+    print ("Verde Claro:        ","%.2f" %contLightGreen + "%")
+    print ("Amarillo Claro:     ","%.2f" %contLightYellow + "%")
+    print ("Amarillo Oscuro:    ","%.2f" %contDarkYellow + "%")
+    print ("Cafe:               ","%.2f" %contBrown + "%")
+    print ("Negro:              ","%.2f" %contBlack + "%")
+
+    arregloMaduracion = []
+    im2.show()
+    ##omega = input('En qué estado de maduración está el banano VERDE[1]  MAS AMARILLO QUE VERDE[2]  AMARILLO[3]    AMARILLO MOTEADO[4]   AMARILLO MANCHADO[5]    NEGRO[6] ?  ')
+    omega = input('En qué estado de maduración está el banano [1 - 6] ?  ')
+    if omega == '1':
+        arregloMaduracion = [1,0,0,0,0,0]
+    elif omega == '2':
+        arregloMaduracion = [0,1,0,0,0,0]
+    elif omega == '3':
+        arregloMaduracion = [0,0,1,0,0,0]
+    elif omega == 4:
+        arregloMaduracion = [0,0,0,1,0,0]
+    elif omega == 5:
+        arregloMaduracion = [0,0,0,0,1,0]
+    elif omega == 6:
+        arregloMaduracion = [0,0,0,0,0,1]
+
+
+    print (arregloMaduracion)
