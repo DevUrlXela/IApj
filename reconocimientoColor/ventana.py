@@ -10,13 +10,21 @@ root.geometry("1050x600")
 
 
 
-imagen=cv2.imread('bananaFinal.jpg')
+imagen=cv2.imread('ventana/opcion1.jpg')
+imagen2=cv2.imread('ventana/opcion2.jpg')
+
 imagen = cv2.resize(imagen,(400, 400))
-cv2.imwrite('ventana/opcion1.jpg',imagen)
-img = ImageTk.PhotoImage(Image.open('ventana/opcion1.jpg'))
+imagen2 = cv2.resize(imagen2,(400, 400))
+
+cv2.imwrite('ventana/opcion1_resize.jpg',imagen)
+cv2.imwrite('ventana/opcion2_resize.jpg',imagen2)
+
+img = ImageTk.PhotoImage(Image.open('ventana/opcion1_resize.jpg'))
+img2 = ImageTk.PhotoImage(Image.open('ventana/opcion2_resize.jpg'))
+
 
 panel = Label(root, image = img)
-panel2 = Label(root, image = img)
+panel2 = Label(root, image = img2)
 #panel.pack(side = "bottom", fill = "both", expand = "yes")
 app = Frame(root)
 app.grid()

@@ -30,13 +30,16 @@ def overlay_mask(mask,image):
 	img=cv2.addWeighted(rgb_mask,0.5,image,0.5,0)
 	return img
 
-def bananoLimpio(imagen):
+def bananoLimpio(imagen,val):
 	img = cv2.imread('img3.jpg')
 	altura = imagen.shape[1]
 	ancho = imagen.shape[0]
 	resized_imagen = cv2.resize(img, (altura, ancho))
 	cv2.ellipse(resized_imagen,ellipse,red,2,1)
-	cv2.imwrite('bananaFinal.jpg',resized_imagen)
+	if val==1:
+		cv2.imwrite('ventana/opcion1.jpg',resized_imagen)
+	else:
+		cv2.imwrite('ventana/opcion2.jpg',resized_imagen)
 	print(ancho)
 	print(altura)
 
@@ -64,7 +67,9 @@ def show(image):
 	plt.figure(figsize=(10,10))
 	plt.imshow(image,interpolation='nearest')
 
-def draw_banana(image):
+	#min_color=np.array([130,0,0]) max_color=np.array([170,255,255]) mascaras para color negro
+	#min_color=np.array([15,100,80]) max_color=np.array([105,255,255]) mascaras para demas colores
+def draw_banana(image,min_color,max_color):
 	#PRE PROCESSING OF IMAGE
 	image=cv2.cvtColor(image,cv2.COLOR_BGR2RGB)
 	maxsize=max(image.shape)
@@ -72,8 +77,7 @@ def draw_banana(image):
 	image=cv2.resize(image,None,fx=scale,fy=scale)
 	image_blur=cv2.GaussianBlur(image,(7,7),0)
 	image_blur_hsv=cv2.cvtColor(image_blur,cv2.COLOR_RGB2HSV)
-	min_color=np.array([130,0,0])
-	max_color=np.array([170,255,255])
+
 	mask1=cv2.inRange(image_blur_hsv,min_color,max_color)
 	min_color2=np.array([170,100,80])
 	max_color2=np.array([180,255,255])
@@ -111,15 +115,24 @@ def cortar():
 def mapeo(x, in_min, in_max, out_min = 0, out_max = 10.):
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
 
-
+#ejecucion de banano con mascaras claras
 banana=cv2.imread('banano9.jpg')
-result_banana=draw_banana(banana)
-cv2.imwrite('banana_new.jpg',result_banana)
+result_banana=draw_banana(banana,np.array([15,100,80]),np.array([105,255,255]))
 #imagen girada por el angulo de la primera elipse encontrada
 rotacion = ndimage.rotate(banana, angulo)
 cv2.imwrite('img3.jpg',rotacion)#se crea la segunda ellipse rotada 0 en su angulo
 bananaRotada = cv2.imread('img3.jpg')
-result_banana=draw_banana(bananaRotada)
-cv2.imwrite('banana_new.jpg',result_banana)
-bananoLimpio(result_banana)
-cortar()
+result_banana=draw_banana(banana,np.array([15,100,80]),np.array([105,255,255]))
+bananoLimpio(result_banana,1)
+
+
+
+#ejecucion de banano mascaras oscuras
+banana=cv2.imread('banano9.jpg')
+result_banana=draw_banana(banana,np.array([130,0,0]),np.array([170,255,255]))
+#imagen girada por el angulo de la primera elipse encontrada
+rotacion = ndimage.rotate(banana, angulo)
+cv2.imwrite('img3.jpg',rotacion)#se crea la segunda ellipse rotada 0 en su angulo
+bananaRotada = cv2.imread('img3.jpg')
+result_banana=draw_banana(bananaRotada,np.array([130,0,0]),np.array([170,255,255]))
+bananoLimpio(result_banana,2)
