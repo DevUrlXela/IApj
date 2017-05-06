@@ -158,7 +158,7 @@ syn1 = 2*np.random.random((44,6)) - 1  # 4x1 matrix of weights. (4 nodes x 1 out
 #training step
 # Python2 Note: In the follow command, you may improve
 #   performance by replacing 'range' with 'xrange'.
-for j in range(6):
+for j in range(600000):
 
     # Calculate forward through the network.
     l0 = X
