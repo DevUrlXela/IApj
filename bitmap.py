@@ -213,5 +213,7 @@ for iterador in range(len(arrayFotos)):
     elif omega == 6:
         arregloMaduracion = [0,0,0,0,0,1]
 
-
-    print (arregloMaduracion)
+    f = open("entrada.csv",'a')
+    f.seek(0,2)
+    f.write("Hola\n")
+    f.close()
