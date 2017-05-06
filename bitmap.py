@@ -1,22 +1,35 @@
 from PIL import Image
 import numpy as np
 import webcolors as webcolors
+from os import listdir
+
+redcolors = (
+'lightsalmon',
+'salmon',
+'darksalmon',
+'lightcoral',
+'indianred',
+'crimson',
+'firebrick',
+'darkred',
+'red'
+)
+
+orangecolors = (
+'orangered',
+'tomato',
+'coral',
+'darkorange',
+'orange'
+)
 
 
-primeraetapa = (
+verdeOscuro = (
 'darkolivegreen',
-'olivedrab',
 'olive',
+'olivedrab',
 'yellowgreen',
 'limegreen',
-'lime',
-'lawngreen',
-'chartreuse',
-'greenyellow',
-'springgreen',
-'mediumspringgreen',
-'lightgreen',
-'palegreen',
 'darkseagreen',
 'mediumaquamarine',
 'mediumseagreen',
@@ -27,14 +40,30 @@ primeraetapa = (
 )
 
 
-etapamedia = (
-'yellow',
+verdeClaro = (
+'lime',
+'lawngreen',
+'chartreuse',
+'greenyellow',
+'springgreen',
+'mediumspringgreen',
+'lightgreen',
+'palegreen'
+)
+
+
+amarillosC = (
 'lightyellow',
 'lemonchiffon',
 'lightgoldenrodyellow',
 'papayawhip',
 'moccasin',
 'peachpuff',
+)
+
+amarillosO = (
+'yellow',
+'lightyellow',
 'palegoldenrod',
 'khaki',
 'darkkhaki',
@@ -42,7 +71,7 @@ etapamedia = (
 )
 
 
-etapafinal = (
+brown = (
 'darkgoldenrod',
 'peru',
 'chocolate',
@@ -50,6 +79,9 @@ etapafinal = (
 'sienna',
 'brown',
 'maroon',
+)
+
+black = (
 'silver',
 'darkgray',
 'gray',
@@ -85,71 +117,103 @@ def get_colour_name(requested_colour):
     return actual_name, closest_name
 
 
-def buscarDato(nombre):
-    cont=0
-    for dato in lista_nombreReal:
-        if dato  == nombre:
-            cont = 1
-    if cont != 1:
-        lista_nombreReal.append(nombre)
+
+arrayFotos = []
+
+for cosa in listdir("."):
+    if cosa[-4:] == ".jpg":
+        arrayFotos.append(cosa)
+
+for iterador in range(len(arrayFotos)):
+    #print (arrayFotos[iterador])
+
+    im2 = Image.open(arrayFotos[iterador])
+    im = im2.convert("RGB")
+
+    pixels = list(im.getdata())
+    contRed = 0
+    contOrange = 0
+    contDarkGreen = 0
+    contLightGreen = 0
+    contLightYellow = 0
+    contDarkYellow = 0
+    contBrown = 0
+    contBlack = 0
+
+    for dato in range(4900):
+        actual_name, closest_name = get_colour_name(pixels[dato])
+        # buscarDato(closest_name)
+        #print(actual_name)
+        for iterador in range(len(redcolors)):
+            if closest_name is redcolors[iterador]:
+                contRed += 1
+
+        for iterador in range(len(orangecolors)):
+            if closest_name is orangecolors[iterador]:
+                contOrange += 1
+
+        for iterador in range(len(verdeOscuro)):
+            if closest_name is verdeOscuro[iterador]:
+                contDarkGreen += 1
+
+        for iterador in range(len(verdeClaro)):
+            if closest_name is verdeClaro[iterador]:
+                contLightGreen += 1
+
+        for iterador in range(len(amarillosC)):
+            if closest_name is amarillosC[iterador]:
+                contLightYellow += 1
+
+        for iterador in range(len(amarillosO)):
+            if closest_name is amarillosO[iterador]:
+                contDarkYellow += 1
+
+        for iterador in range(len(brown)):
+            if closest_name is brown[iterador]:
+                contBrown += 1
+
+        for iterador in range(len(black)):
+            if closest_name is black[iterador]:
+                contBlack += 1
 
 
+    contRed = (contRed * 100) / 4900
+    contOrange = (contOrange * 100) / 4900
+    contDarkGreen = (contDarkGreen * 100) / 4900
+    contLightGreen = (contLightGreen * 100) / 4900
+    contLightYellow = (contLightYellow * 100) / 4900
+    contDarkYellow = (contDarkYellow * 100) / 4900
+    contBrown = (contBrown * 100) / 4900
+    contBlack = (contBlack * 100) / 4900
 
 
+    print ("Rojo:               ","%.2f" %contRed + "%")
+    print ("Naranja:            ","%.2f" %contOrange + "%")
+    print ("Verde Oscuro:       ","%.2f" %contDarkGreen + "%")
+    print ("Verde Claro:        ","%.2f" %contLightGreen + "%")
+    print ("Amarillo Claro:     ","%.2f" %contLightYellow + "%")
+    print ("Amarillo Oscuro:    ","%.2f" %contDarkYellow + "%")
+    print ("Cafe:               ","%.2f" %contBrown + "%")
+    print ("Negro:              ","%.2f" %contBlack + "%")
 
+    arregloMaduracion = []
+    im2.show()
+    ##omega = input('En qué estado de maduración está el banano VERDE[1]  MAS AMARILLO QUE VERDE[2]  AMARILLO[3]    AMARILLO MOTEADO[4]   AMARILLO MANCHADO[5]    NEGRO[6] ?  ')
+    omega = input('En qué estado de maduración está el banano [1 - 6] ?  ')
+    if omega == '1':
+        arregloMaduracion = [1,0,0,0,0,0]
+    elif omega == '2':
+        arregloMaduracion = [0,1,0,0,0,0]
+    elif omega == '3':
+        arregloMaduracion = [0,0,1,0,0,0]
+    elif omega == 4:
+        arregloMaduracion = [0,0,0,1,0,0]
+    elif omega == 5:
+        arregloMaduracion = [0,0,0,0,1,0]
+    elif omega == 6:
+        arregloMaduracion = [0,0,0,0,0,1]
 
-
-
-im2 = Image.open('reconocimientoColor/cortar.jpg')
-im = im2.convert("RGB")
-global lista_nombreReal
-global lista_nombreCercano
-
-lista_nombreReal = ['hola']
-
-
-pixels = list(im.getdata())
-width, height = im.size
-
-# print (width)
-# print (height)
-
-contN = 0
-contV = 0
-contA = 0
-
-for dato in range(4900):
-    actual_name, closest_name = get_colour_name(pixels[dato])
-    # buscarDato(closest_name)
-    #print(actual_name)
-    for iterador in range(len(etapafinal)):
-        if closest_name is etapafinal[iterador]:
-            #negro = True
-            contN += 1
-
-    for iterador in range(len(etapamedia)):
-        if closest_name is etapamedia[iterador]:
-            #amarillo = True
-            contA += 1
-
-    for iterador in range(len(primeraetapa)):
-        if closest_name is primeraetapa[iterador]:
-            #verde = True
-            contV += 1
-
-#print ("Verdes: ",contV)
-#print ("Amarillos: ",contA)
-#print ("Negros: ",contN)
-
-contV = (contV * 100) / 4900
-contA = (contA * 100) / 4900
-contN = (contN * 100) / 4900
-
-print ("Verdes: ","%.2f" %contV + "%")
-print ("Amarillos: ","%.2f" %contA + "%")
-print ("Negros: ","%.2f" %contN + "%")
-
-
-    #print ("Actual colour name:", actual_name, ", closest colour name:", closest_name)
-#print (lista_nombreReal)
-#print(len(lista_nombreReal))
+    f = open("entrada.csv",'a')
+    f.seek(0,2)
+    f.write("Hola\n")
+    f.close()
