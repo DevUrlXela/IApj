@@ -4,16 +4,108 @@ import numpy as np
 #import numpy for scientific calculations
 from matplotlib import pyplot as plt
 #display the image
-from PIL import Image
+from PIL import ImageTk
+from PIL import Image as im
 from scipy import ndimage
+from tkinter import *
 
 
+
+
+global decisionRecorte
+global x
+global y
 green=(0,255,0)
 red=(255,0,0)
 blue=(0,0,255)
 
 
 
+def recorteVal(val):
+	return val
+
+def ventanaRecorte():
+	global root
+	root = Tk()
+	root.title("Labeler")
+	root.geometry("1050x600")
+
+	imagen=cv2.imread('banana.jpg')
+	cv2.imwrite('ventana/opcion1_resize.jpg',imagen)
+
+	img = ImageTk.PhotoImage(im.open('ventana/opcion1_resize.jpg'))
+
+	panel = Label(root, image = img)
+	#panel.pack(side = "bottom", fill = "both", expand = "yes")
+	app = Frame(root)
+	app.grid()
+	label = Label(app, text="Elige la opcion que mejor detecto el banano")
+	panel.grid()
+	root.bind('<Button-1>', motion)
+	root.mainloop()
+
+def ventana(valor):
+	global root
+	root = Tk()
+	root.title("DETECCION DE BANANOS")
+	root.geometry("800x600")
+
+
+	if valor ==1 :
+		imagen=cv2.imread('ventana/opcion1.jpg')
+	else:
+		imagen=cv2.imread('ventana/opcion2.jpg')
+
+	imagen = cv2.resize(imagen,(400, 400))
+
+
+	cv2.imwrite('ventana/opcion1_resize.jpg',imagen)
+
+
+	img = ImageTk.PhotoImage(im.open('ventana/opcion1_resize.jpg'))
+
+
+
+	panel = Label(root, image = img)
+
+	#panel.pack(side = "bottom", fill = "both", expand = "yes")
+	app = Frame(root)
+	app.grid()
+	label = Label(app, text="El Banano fue correctamente detectado?")
+
+	boton1 = Button(app,text="SI")
+	boton1.bind('<Button-1>',funcion)
+	boton2 = Button(app,text="NO")
+	boton2.bind('<Button-1>',funcion2)
+
+
+
+	label.config(font=30)
+	label.grid(row=0, column=200)
+	boton1.grid(row=1, column=150)
+	boton2.grid(row=1, column=200)
+
+	panel.config(height=500)
+	panel.grid(row=40)
+
+
+
+	root.mainloop()
+
+def motion(event):
+    x, y = event.x, event.y;	print(x,y);cortarUser(x,y);
+
+
+def funcion(event):
+	global decisionRecorte
+	decisionRecorte=1
+
+def funcion2(event):
+	global decisionRecorte
+	decisionRecorte=0
+# def funcion2(event):
+# 	global decisionRecorte
+#     decisionRecorte=2
 
 def find_biggest_contour(image):
 	image=image.copy()
@@ -30,13 +122,16 @@ def overlay_mask(mask,image):
 	img=cv2.addWeighted(rgb_mask,0.5,image,0.5,0)
 	return img
 
-def bananoLimpio(imagen):
+def bananoLimpio(imagen,val):
 	img = cv2.imread('img3.jpg')
 	altura = imagen.shape[1]
 	ancho = imagen.shape[0]
 	resized_imagen = cv2.resize(img, (altura, ancho))
 	cv2.ellipse(resized_imagen,ellipse,red,2,1)
-	cv2.imwrite('bananaFinal.jpg',resized_imagen)
+	if val==1:
+		cv2.imwrite('ventana/opcion1.jpg',resized_imagen)
+	else:
+		cv2.imwrite('ventana/opcion2.jpg',resized_imagen)
 	print(ancho)
 	print(altura)
 
@@ -58,13 +153,16 @@ def circle_contour(image,contour):
 	cv2.ellipse(image_with_ellipse,ellipse,red,2,1)
 	return image_with_ellipse
 
+def cortarUser(x,y):
+    crop_img = banana[int(y):int(y)+70,int(x):int(x)+70];	cv2.imwrite('cortar.jpg',crop_img);
 
 def show(image):
-
 	plt.figure(figsize=(10,10))
 	plt.imshow(image,interpolation='nearest')
 
-def draw_banana(image):
+	#min_color=np.array([130,0,0]) max_color=np.array([170,255,255]) mascaras para color negro
+	#min_color=np.array([15,100,80]) max_color=np.array([105,255,255]) mascaras para demas colores
+def draw_banana(image,min_color,max_color):
 	#PRE PROCESSING OF IMAGE
 	image=cv2.cvtColor(image,cv2.COLOR_BGR2RGB)
 	maxsize=max(image.shape)
@@ -72,8 +170,7 @@ def draw_banana(image):
 	image=cv2.resize(image,None,fx=scale,fy=scale)
 	image_blur=cv2.GaussianBlur(image,(7,7),0)
 	image_blur_hsv=cv2.cvtColor(image_blur,cv2.COLOR_RGB2HSV)
-	min_color=np.array([130,0,0])
-	max_color=np.array([170,255,255])
+
 	mask1=cv2.inRange(image_blur_hsv,min_color,max_color)
 	min_color2=np.array([170,100,80])
 	max_color2=np.array([180,255,255])
@@ -95,9 +192,12 @@ def draw_banana(image):
 
 	return bgr
 
+def cortar(val):
+	if val == 1:
+		img = cv2.imread("ventana/opcion1.jpg")
+	else:
+		img = cv2.imread("ventana/opcion2.jpg")
 
-def cortar():
-	img = cv2.imread("bananaFinal.jpg")
 	print(centros)
 	crop_img = img[ (int(centros[1])-(int(distancias[1]*0.25))):(int(centros[1])+(int(distancias[1]*0.25))), (int(centros[0])-(int(distancias[0]*0.25))):(int(centros[0])+(int(distancias[0]*0.25)))                     ]
 	 # Crop from x, y, w, h -> 100, 200, 300, 400
@@ -111,15 +211,73 @@ def cortar():
 def mapeo(x, in_min, in_max, out_min = 0, out_max = 10.):
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
 
+global banana
+banana=cv2.imread('banana.jpg')
+try:
+#ejecucion de banano con mascaras claras
 
-banana=cv2.imread('banano9.jpg')
-result_banana=draw_banana(banana)
-cv2.imwrite('banana_new.jpg',result_banana)
+	result_banana=draw_banana(banana,np.array([15,100,80]),np.array([105,255,255]))
+
 #imagen girada por el angulo de la primera elipse encontrada
-rotacion = ndimage.rotate(banana, angulo)
-cv2.imwrite('img3.jpg',rotacion)#se crea la segunda ellipse rotada 0 en su angulo
-bananaRotada = cv2.imread('img3.jpg')
-result_banana=draw_banana(bananaRotada)
-cv2.imwrite('banana_new.jpg',result_banana)
-bananoLimpio(result_banana)
-cortar()
+	rotacion = ndimage.rotate(banana, angulo)
+	cv2.imwrite('img3.jpg',rotacion)#se crea la segunda ellipse rotada 0 en su angulo
+	bananaRotada = cv2.imread('img3.jpg')
+	result_banana = draw_banana(bananaRotada,np.array([15,100,80]),np.array([105,255,255]))
+	bananoLimpio(result_banana,1)
+	ventana(1)
+	if decisionRecorte == 1:
+		cortar(1)
+#ejecucion de banano mascaras oscuras
+	else:
+
+		result_banana=draw_banana(banana,np.array([130,0,0]),np.array([170,255,255]))
+		#imagen girada por el angulo de la primera elipse encontrada
+		rotacion = ndimage.rotate(banana, angulo)
+		cv2.imwrite('img3.jpg',rotacion)#se crea la segunda ellipse rotada 0 en su angulo
+		bananaRotada = cv2.imread('img3.jpg')
+		result_banana=draw_banana(bananaRotada,np.array([130,0,0]),np.array([170,255,255]))
+		bananoLimpio(result_banana,2)
+		ventana(2)
+		if decisionRecorte == 1:
+			cortar(1)
+except Exception:
+	try:
+
+		result_banana=draw_banana(banana,np.array([130,0,0]),np.array([170,255,255]))
+		#imagen girada por el angulo de la primera elipse encontrada
+		rotacion = ndimage.rotate(banana, angulo)
+		cv2.imwrite('img3.jpg',rotacion)#se crea la segunda ellipse rotada 0 en su angulo
+		bananaRotada = cv2.imread('img3.jpg')
+		result_banana=draw_banana(bananaRotada,np.array([130,0,0]),np.array([170,255,255]))
+		bananoLimpio(result_banana,2)
+		ventana(2)
+		if decisionRecorte == 1:
+			cortar(2)
+
+
+			result_banana=draw_banana(banana,np.array([130,0,0]),np.array([170,255,255]))
+			#imagen girada por el angulo de la primera elipse encontrada
+			rotacion = ndimage.rotate(banana, angulo)
+			cv2.imwrite('img3.jpg',rotacion)#se crea la segunda ellipse rotada 0 en su angulo
+			bananaRotada = cv2.imread('img3.jpg')
+			result_banana=draw_banana(bananaRotada,np.array([130,0,0]),np.array([170,255,255]))
+			bananoLimpio(result_banana,2)
+			ventana(2)
+			if decisionRecorte == 1:
+				cortar(1)
+	except Exception:
+		print("No se puede reconocer el banano")
+		ventanaRecorte()
+
+
+    # cv2.waitKey(0)
+	# cv2.destroyAllWindows()
+    # while(iteracion==0):
+    #     print("while entro")
+    #
+    #
+    #     k = cv2.waitKey(20) & 0xFF
+    #     if k == 27:
+    #         break
+    #     elif k == ord('a'):
+    #         print (mouseX,mouseY)
