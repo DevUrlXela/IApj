@@ -131,7 +131,7 @@ def get_colour_name(requested_colour):
 
 
 
-im2 = Image.open("prueba4.jpg")
+im2 = Image.open("xe8.jpg")
 im = im2.convert("RGB")
 
 pixels = list(im.getdata())
