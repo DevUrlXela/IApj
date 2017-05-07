@@ -123,7 +123,7 @@ for i in range(0,len(net.layers)):
     print ("Net layer", i)
     print (net.layers[i].np['w'])
 
-net.save('test.net')
+##net.save('test.net')
 #net = nl.load('test.net')
 
 #net = newff([[-0.5, 0.5], [-0.5, 0.5]], [3, 1])
