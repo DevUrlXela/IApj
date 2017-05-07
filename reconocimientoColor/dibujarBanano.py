@@ -7,6 +7,7 @@ from matplotlib import pyplot as plt
 from PIL import ImageTk
 from PIL import Image as im
 from scipy import ndimage
+from tkinter import filedialog
 from tkinter import *
 
 
