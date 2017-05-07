@@ -10,16 +10,120 @@ from scipy import ndimage
 from tkinter import filedialog
 from tkinter import *
 from tkinter.filedialog import askopenfilename
+import pylab as pl
+from os import listdir
+import webcolors as webcolors
+import neurolab as nl
 
-
-
-
+np.set_printoptions(suppress=True)
+global decision
 global decisionRecorte
 global x
 global y
 green=(0,255,0)
 red=(255,0,0)
 blue=(0,0,255)
+
+net = nl.load('test.net')
+#a8
+
+redcolors = (
+'lightsalmon',
+'salmon',
+'darksalmon',
+'lightcoral',
+'indianred',
+'crimson',
+'firebrick',
+'darkred',
+'red'
+)
+
+orangecolors = (
+'orangered',
+'tomato',
+'coral',
+'darkorange',
+'orange'
+)
+
+
+verdeOscuro = (
+'darkolivegreen',
+'olive',
+'olivedrab',
+'yellowgreen',
+'limegreen',
+'darkseagreen',
+'mediumaquamarine',
+'mediumseagreen',
+'seagreen',
+'forestgreen',
+'green',
+'darkgreen'
+)
+
+
+verdeClaro = (
+'lime',
+'lawngreen',
+'chartreuse',
+'greenyellow',
+'springgreen',
+'mediumspringgreen',
+'lightgreen',
+'palegreen'
+)
+
+
+amarillosC = (
+'lightyellow',
+'lemonchiffon',
+'lightgoldenrodyellow',
+'papayawhip',
+'moccasin',
+'peachpuff',
+)
+
+amarillosO = (
+'yellow',
+'lightyellow',
+'palegoldenrod',
+'khaki',
+'darkkhaki',
+'goldenrod',
+)
+
+
+brown = (
+'darkgoldenrod',
+'peru',
+'chocolate',
+'saddlebrown',
+'sienna',
+'brown',
+'maroon',
+)
+
+black = (
+'silver',
+'darkgray',
+'darkgrey',
+'grey',
+'gray',
+'dimgray',
+'dimgrey',
+'lightslategray',
+'lightslategrey',
+'slategray',
+'slategrey',
+'darkslategray',
+'darkslategrey',
+'black'
+)
+
+arrayFotos = []
+
 
 
 def chooser():
@@ -112,7 +216,7 @@ def funcion2(event):
 	decisionRecorte=0
 # def funcion2(event):
 # 	global decisionRecorte
-#     decisionRecorte=2
+#     decisionRecbananaorte=2
 
 def find_biggest_contour(image):
 	image=image.copy()
@@ -136,6 +240,7 @@ def bananoLimpio(imagen,val):
 	resized_imagen = cv2.resize(img, (altura, ancho))
 	cv2.ellipse(resized_imagen,ellipse,red,2,1)
 	if val==1:
+
 		cv2.imwrite('ventana/opcion1.jpg',resized_imagen)
 	else:
 		cv2.imwrite('ventana/opcion2.jpg',resized_imagen)
@@ -218,10 +323,116 @@ def cortar(val):
 def mapeo(x, in_min, in_max, out_min = 0, out_max = 10.):
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
 
+#Funciones Para Red
+
+def displayImage(image):
+    displayList=np.array(image).T
+    im1 = Image.fromarray(displayList)
+    im1.show()
+
+def closest_colour(requested_colour):
+    min_colours = {}
+    for key, name in webcolors.css3_hex_to_names.items():
+        r_c, g_c, b_c = webcolors.hex_to_rgb(key)
+        rd = (r_c - requested_colour[0]) ** 2
+        gd = (g_c - requested_colour[1]) ** 2
+        bd = (b_c - requested_colour[2]) ** 2
+        min_colours[(rd + gd + bd)] = name
+    return min_colours[min(min_colours.keys())]
+
+def get_colour_name(requested_colour):
+    try:
+        closest_name = actual_name = webcolors.rgb_to_name(requested_colour)
+    except ValueError:
+        closest_name = closest_colour(requested_colour)
+        actual_name = None
+    return actual_name, closest_name
+
+
+
+def cargarRed(val):
+
+	im2 = im.open('cortar.jpg')
+	im3 = im2.convert("RGB")
+
+	pixels = list(im3.getdata())
+	contRed = 0
+	contOrange = 0
+	contDarkGreen = 0
+	contLightGreen = 0
+	contLightYellow = 0
+	contDarkYellow = 0
+	contBrown = 0
+	contBlack = 0
+
+	for dato in range(4900):
+	    actual_name, closest_name = get_colour_name(pixels[dato])
+	    # buscarDato(closest_name)
+	    #print(actual_name)
+	    for iterador in range(len(redcolors)):
+	        if closest_name is redcolors[iterador]:
+	            contRed += 1
+
+	    for iterador in range(len(orangecolors)):
+	        if closest_name is orangecolors[iterador]:
+	            contOrange += 1
+
+	    for iterador in range(len(verdeOscuro)):
+	        if closest_name is verdeOscuro[iterador]:
+	            contDarkGreen += 1
+
+	    for iterador in range(len(verdeClaro)):
+	        if closest_name is verdeClaro[iterador]:
+	            contLightGreen += 1
+
+	    for iterador in range(len(amarillosC)):
+	        if closest_name is amarillosC[iterador]:
+	            contLightYellow += 1
+
+	    for iterador in range(len(amarillosO)):
+	        if closest_name is amarillosO[iterador]:
+	            contDarkYellow += 1
+
+	    for iterador in range(len(brown)):
+	        if closest_name is brown[iterador]:
+	            contBrown += 1
+
+	    for iterador in range(len(black)):
+	        if closest_name is black[iterador]:
+	            contBlack += 1
+
+
+	contRed = (contRed * 100) / 4900
+	contOrange = (contOrange * 100) / 4900
+	contDarkGreen = (contDarkGreen * 100) / 4900
+	contLightGreen = (contLightGreen * 100) / 4900
+	contLightYellow = (contLightYellow * 100) / 4900
+	contDarkYellow = (contDarkYellow * 100) / 4900
+	contBrown = (contBrown * 100) / 4900
+	contBlack = (contBlack * 100) / 4900
+
+	contRed =  round(contRed, 2)
+	contOrange = round(contOrange, 2)
+	contDarkGreen = round(contDarkGreen, 2)
+	contLightGreen = round(contLightGreen, 2)
+	contLightYellow = round(contLightYellow, 2)
+	contDarkYellow = round(contDarkYellow, 2)
+	contBrown = round(contBrown, 2)
+	contBlack = round(contBlack, 2)
+
+
+	entrada = [[contRed, contOrange, contDarkGreen, contLightGreen, contLightYellow, contDarkYellow, contBrown, contBlack]]
+
+	out = net.sim(entrada)
+	print (out)
+
+#fin  funciones Red
+
+
 
 
 global banana
-banana = cv2.imread('b1.jpg')
+banana = cv2.imread('prueba.jpg')
 
 
 try:
@@ -235,8 +446,10 @@ try:
 	bananaRotada = cv2.imread('img3.jpg')
 	result_banana = draw_banana(bananaRotada,np.array([15,100,80]),np.array([105,255,255]))
 	bananoLimpio(result_banana,1)
+
 	ventana(1)
-	if decisionRecorte == 1:
+
+	if decisionRecorte== 1:
 		cortar(1)
 #ejecucion de banano mascaras oscuras
 	else:
@@ -278,7 +491,8 @@ except Exception:
 				cortar(1)
 	except Exception:
 		print("No se puede reconocer el banano")
+		global decision
+		decision = 0
 if decisionRecorte == 0:
 	ventanaRecorte(banana)
-else:
-	
+cargarRed(banana)
