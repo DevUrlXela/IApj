@@ -7,7 +7,9 @@ from matplotlib import pyplot as plt
 from PIL import ImageTk
 from PIL import Image as im
 from scipy import ndimage
+from tkinter import filedialog
 from tkinter import *
+from tkinter.filedialog import askopenfilename
 
 
 
@@ -20,18 +22,22 @@ red=(255,0,0)
 blue=(0,0,255)
 
 
+def chooser():
+	val = askopenfilename()
+	return val;
+
 
 def recorteVal(val):
 	return val
 
-def ventanaRecorte():
+def ventanaRecorte(banana):
 	global root
 	root = Tk()
 	root.title("Labeler")
 	root.geometry("1050x600")
 
-	imagen=cv2.imread('banana.jpg')
-	cv2.imwrite('ventana/opcion1_resize.jpg',imagen)
+
+	cv2.imwrite('ventana/opcion1_resize.jpg',banana)
 
 	img = ImageTk.PhotoImage(im.open('ventana/opcion1_resize.jpg'))
 
@@ -53,6 +59,7 @@ def ventana(valor):
 
 	if valor ==1 :
 		imagen=cv2.imread('ventana/opcion1.jpg')
+		cv2.imwrite('pruebaVentana.jpg',imagen)
 	else:
 		imagen=cv2.imread('ventana/opcion2.jpg')
 
@@ -87,7 +94,7 @@ def ventana(valor):
 
 	panel.config(height=500)
 	panel.grid(row=40)
-
+	print("aqui muestra ventana")
 
 
 	root.mainloop()
@@ -211,8 +218,12 @@ def cortar(val):
 def mapeo(x, in_min, in_max, out_min = 0, out_max = 10.):
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
 
+
+
 global banana
-banana=cv2.imread('banana.jpg')
+banana = cv2.imread('b1.jpg')
+
+
 try:
 #ejecucion de banano con mascaras claras
 
@@ -255,7 +266,7 @@ except Exception:
 			cortar(2)
 
 
-			result_banana=draw_banana(banana,np.array([130,0,0]),np.array([170,255,255]))
+			result_banana = draw_banana(banana,np.array([130,0,0]),np.array([170,255,255]))
 			#imagen girada por el angulo de la primera elipse encontrada
 			rotacion = ndimage.rotate(banana, angulo)
 			cv2.imwrite('img3.jpg',rotacion)#se crea la segunda ellipse rotada 0 en su angulo
@@ -267,17 +278,7 @@ except Exception:
 				cortar(1)
 	except Exception:
 		print("No se puede reconocer el banano")
-		ventanaRecorte()
-
-
-    # cv2.waitKey(0)
-	# cv2.destroyAllWindows()
-    # while(iteracion==0):
-    #     print("while entro")
-    #
-    #
-    #     k = cv2.waitKey(20) & 0xFF
-    #     if k == 27:
-    #         break
-    #     elif k == ord('a'):
-    #         print (mouseX,mouseY)
+if decisionRecorte == 0:
+	ventanaRecorte(banana)
+else:
+	
