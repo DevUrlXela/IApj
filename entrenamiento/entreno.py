@@ -99,7 +99,7 @@ target = [[0,0,0,0,0,1],
 
 #nl.net.newff([[-0.5, 0.5], [-0.5, 0.5]], [3, 1])  Tres neuronas en capa oculta, una en capa de salida
 net = nl.net.newff([[-7, 7]]*8, [14, 6])
-net.load()
+
 print(net.ci)
 print(net.co)
 # train with delta rule
@@ -122,5 +122,8 @@ print ("\n\nPesos:\n")
 for i in range(0,len(net.layers)):
     print ("Net layer", i)
     print (net.layers[i].np['w'])
+
+net.save('test.net')
+#net = nl.load('test.net')
 
 #net = newff([[-0.5, 0.5], [-0.5, 0.5]], [3, 1])
