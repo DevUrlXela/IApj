@@ -418,13 +418,13 @@ target = [[0, 0, 0, 0, 0, 1],
 #net = nl.net.newp([[0, 1],[0, 1]], 1)
 
 #nl.net.newff([[-0.5, 0.5], [-0.5, 0.5]], [3, 1])  Tres neuronas en capa oculta, una en capa de salida
-net = nl.net.newff([[-7, 7]]*8, [14, 6])
+net = nl.net.newff([[-20, 20]]*8, [46, 6])
 
 print(net.ci)
 print(net.co)
 # train with delta rule
 # see net.trainf
-error = net.train(entrada, target, epochs=50000, show=100, goal=0.03)
+error = net.train(entrada, target, epochs=500000, show=100, goal=0.03)
 
 # Plot results
 out = net.sim(entrada)
@@ -443,7 +443,7 @@ for i in range(0,len(net.layers)):
     print ("Net layer", i)
     print (net.layers[i].np['w'])
 
-##net.save('test.net')
+net.save('test.net')
 #net = nl.load('test.net')
 
 #net = newff([[-0.5, 0.5], [-0.5, 0.5]], [3, 1])
