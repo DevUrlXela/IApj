@@ -214,19 +214,17 @@ for iterador in range(len(arrayFotos)):
     arregloMaduracion = []
     im2.show()
     ##omega = input('En qué estado de maduración está el banano VERDE[1]  MAS AMARILLO QUE VERDE[2]  AMARILLO[3]    AMARILLO MOTEADO[4]   AMARILLO MANCHADO[5]    NEGRO[6] ?  ')
-    omega = input('En qué estado de maduración está el banano [1 - 6] ?  ')
+    omega = input('En qué estado de maduración está el banano [1 - 5] ?  ')
     if omega == '1':
-        arregloMaduracion = [1,0,0,0,0,0]
+        arregloMaduracion = [1,0,0,0,0]
     elif omega == '2':
-        arregloMaduracion = [0,1,0,0,0,0]
+        arregloMaduracion = [0,1,0,0,0]
     elif omega == '3':
-        arregloMaduracion = [0,0,1,0,0,0]
+        arregloMaduracion = [0,0,1,0,0]
     elif omega == '4':
-        arregloMaduracion = [0,0,0,1,0,0]
+        arregloMaduracion = [0,0,0,1,0]
     elif omega == '5':
-        arregloMaduracion = [0,0,0,0,1,0]
-    elif omega == '6':
-        arregloMaduracion = [0,0,0,0,0,1]
+        arregloMaduracion = [0,0,0,0,1]
 
     cadena =  str(contRed) + " " + str(contOrange) + " " + str(contDarkGreen) + " " + str(contLightGreen) + " " + str(contLightYellow) + " "  + str(contDarkYellow) + " " + str(contBrown) + " " + str(contBlack) + " "  + str(arregloMaduracion[0]) + " " + str(arregloMaduracion[1]) +  " " + str(arregloMaduracion[2]) +  " " + str(arregloMaduracion[3]) +  " " + str(arregloMaduracion[4]) +  " "  + str(arregloMaduracion[5])
     f = open("entrada.csv",'a')
