@@ -1,6 +1,8 @@
 import neurolab as nl
 import pylab as pl
+import numpy as np
 
+np.set_printoptions(suppress=True)
 # Logical &
 entrada = [[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 92.94],
             [0.0, 0.0, 54.61, 0.0, 0.06, 42.39, 0.0, 1.96],
@@ -96,22 +98,28 @@ target = [[0,0,0,0,0,1],
 #net = nl.net.newp([[0, 1],[0, 1]], 1)
 
 #nl.net.newff([[-0.5, 0.5], [-0.5, 0.5]], [3, 1])  Tres neuronas en capa oculta, una en capa de salida
-net = nl.net.newff([[-1, 1]]*8, [6, 6])
+net = nl.net.newff([[-7, 7]]*8, [14, 6])
 print(net.ci)
 print(net.co)
 # train with delta rule
 # see net.trainf
-error = net.train(entrada, target, epochs=100, show=100, goal=0.01)
+error = net.train(entrada, target, epochs=50000, show=100, goal=0.03)
 
 # Plot results
 out = net.sim(entrada)
-#pl.plot(error)
-pl.plot(out)
-pl.plot(target)
+pl.plot(error)
+#pl.plot(out)
+#pl.plot(target)
 pl.xlabel('Epoch number')
 pl.ylabel('Train error')
 pl.grid()
 pl.show()
-
+print (out)
+print ("\n\nError:\n")
+print (error[-1])
+print ("\n\nPesos:\n")
+for i in range(0,len(net.layers)):
+    print ("Net layer", i)
+    print (net.layers[i].np['w'])
 
 #net = newff([[-0.5, 0.5], [-0.5, 0.5]], [3, 1])
