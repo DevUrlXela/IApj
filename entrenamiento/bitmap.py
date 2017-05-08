@@ -226,7 +226,7 @@ for iterador in range(len(arrayFotos)):
     elif omega == '5':
         arregloMaduracion = [0,0,0,0,1]
 
-    cadena =  str(contRed) + " " + str(contOrange) + " " + str(contDarkGreen) + " " + str(contLightGreen) + " " + str(contLightYellow) + " "  + str(contDarkYellow) + " " + str(contBrown) + " " + str(contBlack) + " "  + str(arregloMaduracion[0]) + " " + str(arregloMaduracion[1]) +  " " + str(arregloMaduracion[2]) +  " " + str(arregloMaduracion[3]) +  " " + str(arregloMaduracion[4]) +  " "  + str(arregloMaduracion[5])
+    cadena =  str(contRed) + " " + str(contOrange) + " " + str(contDarkGreen) + " " + str(contLightGreen) + " " + str(contLightYellow) + " "  + str(contDarkYellow) + " " + str(contBrown) + " " + str(contBlack) + " "  + str(arregloMaduracion[0]) + " " + str(arregloMaduracion[1]) +  " " + str(arregloMaduracion[2]) +  " " + str(arregloMaduracion[3]) +  " " + str(arregloMaduracion[4])
     f = open("entrada.csv",'a')
     f.seek(0,2)
     f.write(str(cadena) + '\n')
