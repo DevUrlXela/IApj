@@ -10,6 +10,7 @@ from scipy import ndimage
 from tkinter import filedialog
 from tkinter import *
 from tkinter.filedialog import askopenfilename
+from tkinter import messagebox
 import pylab as pl
 from os import listdir
 import webcolors as webcolors
@@ -121,9 +122,6 @@ black = (
 'darkslategrey',
 'black'
 )
-
-arrayFotos = []
-
 
 
 def chooser():
@@ -422,7 +420,7 @@ def cargarRed(val):
 
 
 	entrada = [[contRed, contOrange, contDarkGreen, contLightGreen, contLightYellow, contDarkYellow, contBrown, contBlack]]
-
+	global out
 	out = net.sim(entrada)
 	print (out)
 
@@ -496,3 +494,45 @@ except Exception:
 if decisionRecorte == 0:
 	ventanaRecorte(banana)
 cargarRed(banana)
+
+arreglo = out[0]
+pos = 0
+mayor = arreglo[0]
+
+for i in range(len(arreglo)):
+	if arreglo[i] > mayor:
+		mayor = arreglo[i]
+		pos = i
+
+
+if pos == 0:
+	if (arreglo[0] - arreglo[1]) < 0.1:
+		messagebox.showinfo("¡Ups, verde todavia!", "Prueba en unos cinco dias...")
+	else:
+		messagebox.showinfo("¡Ups, demasiado verde!", "El estado de maduración del banano que has elegido es muy temprano. Para su consumo, puedes probar de nuevo a partir de diez dias")
+elif pos == 1:
+	if (arreglo[1] - arreglo[0]) < 0.1:
+		messagebox.showinfo("Espera otro poquito...", "Tu banano recien empieza a madurar. Puede estar amargo si lo comes asi. Espera cinco dias y vuelve por aca")
+	elif (arreglo[1] - arreglo[2]) < 0.1:
+		messagebox.showinfo("Espera otro poquito...", "¡Ya casi! Puedes arriesgarte o esperar otro poquito")
+	else:
+		messagebox.showinfo("Espera otro poquito...", "Todavia le falta otro poquito :)")
+elif pos == 2:
+	if (arreglo[2] - arreglo[1]) < 0.1:
+		messagebox.showinfo("¡Llegó el momento!", "¡Por fin ha alcanzado su madurez! Tienes un aproximado de nueve días.")
+	elif (arreglo[2] - arreglo[3]) < 0.1:
+		messagebox.showinfo("¡Llegó el momento!","Está listo, pero los días están pasando. Te quedan cerca de cinco días...")
+	else:
+		messagebox.showinfo("¡Llegó el momento!","En su punto. Tienes aproximadamente una semana.")
+elif pos == 3:
+	if (arreglo[3] - arreglo[2]) < 0.1:
+		messagebox.showinfo("¡Todavía estás a tiempo!","El tiempo pasa. Quedan cerca de cuatro dias antes de que no puedas comerte el banano")
+	elif (arreglo[3] - arreglo[4]) < 0.1:
+		messagebox.showinfo("¡Queda poco tiempo!","¡Apresúrate! Todavía Estás a tiempo ;) ")
+	else:
+		messagebox.showinfo("¡Ahora o nunca!","Queda poco tiempo. Caducará de cuatro a dos días.")
+elif pos == 4:
+	if arreglo[4] - arreglo[3] < 0.1:
+		messagebox.showinfo("¡Ups! Creo que ya no es buena idea","Es muy posible que tu banano no esté en condiciones para ser digerido. Verifica que no tenga heridas en su cáscara, si te animas...")
+	else:
+		messagebox.showinfo("Ni lo intentes...","El banano caducó. No lo consumas, puede ser peligroso")
