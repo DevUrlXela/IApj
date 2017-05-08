@@ -461,7 +461,7 @@ try:
 		bananoLimpio(result_banana,2)
 		ventana(2)
 		if decisionRecorte == 1:
-			cortar(1)
+			cortar(2)
 except Exception:
 	try:
 
