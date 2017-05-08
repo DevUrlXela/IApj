@@ -507,32 +507,32 @@ for i in range(len(arreglo)):
 
 if pos == 0:
 	if (arreglo[0] - arreglo[1]) < 0.1:
-		messagebox.showinfo("¡Ups, verde todavia!", "Prueba en unos cinco dias...")
+		messagebox.showinfo("¡Ups, verde todavia!", "10'%' \nPrueba en unos cinco dias...\n\nTiempo aproximado para porcentaje de maduracion apto para el consumo: 5 dias \nTiempo aproximado para su caducidad: 22 dias")
 	else:
-		messagebox.showinfo("¡Ups, demasiado verde!", "El estado de maduración del banano que has elegido es muy temprano. Para su consumo, puedes probar de nuevo a partir de diez dias")
+		messagebox.showinfo("¡Ups, demasiado verde!", "0'%' \nEl estado de maduración del banano que has elegido es muy temprano. Para su consumo, puedes probar de nuevo a partir de diez dias \n\nTiempo aproximado para porcentaje de maduracion apto para el consumo: 15 dias \nTiempo aproximado para su caducidad: 27 dias")
 elif pos == 1:
 	if (arreglo[1] - arreglo[0]) < 0.1:
-		messagebox.showinfo("Espera otro poquito...", "Tu banano recien empieza a madurar. Puede estar amargo si lo comes asi. Espera cinco dias y vuelve por aca")
+		messagebox.showinfo("Espera otro poquito...", "15'%' \nTu banano recien empieza a madurar. Puede estar amargo si lo comes asi. Espera siete dias y vuelve por aca \n\nTiempo aproximado para porcentaje de maduracion apto para el consumo: 6-7 dias \nTiempo aproximado para su caducidad: 20 dias")
 	elif (arreglo[1] - arreglo[2]) < 0.1:
-		messagebox.showinfo("Espera otro poquito...", "¡Ya casi! Puedes arriesgarte o esperar otro poquito")
+		messagebox.showinfo("Espera otro poquito...", "30'%' \n¡Ya casi! Puedes arriesgarte o esperar otro poquito \n\nTiempo aproximado para porcentaje de maduracion apto para el consumo: 2 dias \nTiempo aproximado para su caducidad:  16-17dias")
 	else:
-		messagebox.showinfo("Espera otro poquito...", "Todavia le falta otro poquito :)")
+		messagebox.showinfo("Espera otro poquito...", "20'%' \nTodavia le falta otro poquito :)")
 elif pos == 2:
 	if (arreglo[2] - arreglo[1]) < 0.1:
-		messagebox.showinfo("¡Llegó el momento!", "¡Por fin ha alcanzado su madurez! Tienes un aproximado de nueve días.")
+		messagebox.showinfo("¡Llegó el momento!", "40'%' \n¡Por fin ha alcanzado su madurez! Tienes un aproximado de nueve días. \n\nTiempo aproximado para porcentaje de maduracion apto para el consumo: 0 dias \nTiempo aproximado para su caducidad: 11 dias")
 	elif (arreglo[2] - arreglo[3]) < 0.1:
-		messagebox.showinfo("¡Llegó el momento!","Está listo, pero los días están pasando. Te quedan cerca de cinco días...")
+		messagebox.showinfo("¡Llegó el momento!","60'%'E\nstá listo, pero los días están pasando. Te quedan cerca de cinco días... \n\nTiempo aproximado para porcentaje de maduracion apto para el consumo: 0 dias \nTiempo aproximado para su caducidad: 7 dias" )
 	else:
-		messagebox.showinfo("¡Llegó el momento!","En su punto. Tienes aproximadamente una semana.")
+		messagebox.showinfo("¡Llegó el momento!","50'%' \nEn su punto. Tienes aproximadamente una semana. \n\nTiempo aproximado para porcentaje de maduracion apto para el consumo: 0 dias \nTiempo aproximado para su caducidad: 9 dias")
 elif pos == 3:
 	if (arreglo[3] - arreglo[2]) < 0.1:
-		messagebox.showinfo("¡Todavía estás a tiempo!","El tiempo pasa. Quedan cerca de cuatro dias antes de que no puedas comerte el banano")
+		messagebox.showinfo("¡Todavía estás a tiempo!","65'%' \nEl tiempo pasa. Quedan cerca de cuatro dias antes de que no puedas comerte el banano \n\nTiempo aproximado para porcentaje de maduracion apto para el consumo: 0 dias \nTiempo aproximado para su caducidad: 5-6 dias")
 	elif (arreglo[3] - arreglo[4]) < 0.1:
-		messagebox.showinfo("¡Queda poco tiempo!","¡Apresúrate! Todavía Estás a tiempo ;) ")
+		messagebox.showinfo("¡Queda poco tiempo!","75'%' \n¡Apresúrate! Todavía Estás a tiempo ;) \n\nTiempo aproximado para porcentaje de maduracion apto para el consumo: 0 dias \nTiempo aproximado para su caducidad: 4 dias")
 	else:
-		messagebox.showinfo("¡Ahora o nunca!","Queda poco tiempo. Caducará de cuatro a dos días.")
+		messagebox.showinfo("¡Ahora o nunca!","70'%' \nQueda poco tiempo. Caducará de cuatro a dos días. \n\nTiempo aproximado para porcentaje de maduracion apto para el consumo: 0 dias \nTiempo aproximado para su caducidad: 2-4 dias")
 elif pos == 4:
 	if arreglo[4] - arreglo[3] < 0.1:
-		messagebox.showinfo("¡Ups! Creo que ya no es buena idea","Es muy posible que tu banano no esté en condiciones para ser digerido. Verifica que no tenga heridas en su cáscara, si te animas...")
+		messagebox.showinfo("¡Ups! Creo que ya no es buena idea","80'%' \nEs muy posible que tu banano no esté en condiciones para ser digerido. Verifica que no tenga heridas en su cáscara, si te animas... \n\nTiempo aproximado para porcentaje de maduracion apto para el consumo: 0 dias \nTiempo aproximado para su caducidad: 1-2 dias" )
 	else:
-		messagebox.showinfo("Ni lo intentes...","El banano caducó. No lo consumas, puede ser peligroso")
+		messagebox.showinfo("Ni lo intentes...","100'%' \nEl banano caducó. No lo consumas, puede ser peligroso \n\nTiempo aproximado para porcentaje de maduracion apto para el consumo: 0 dias \nTiempo aproximado para su caducidad: 0 dias")
