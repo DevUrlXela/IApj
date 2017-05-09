@@ -15,14 +15,14 @@ Ejecución:
 1) Abrir terminal
 2) buscar carpeta raiz de la aplicacion
 3)entrar en carpeta reconocimientoColor
-Nota en esta carpeta se colocaran las imagenes que se quieren analizar
-4)ejecutar el comando siguiente:
+	Nota en esta carpeta se colocaran las imagenes que se quieren analizar
+4) ejecutar el siguiente comando:
 
 	python dibujarBanano.py ejemplo.jpg
 
 ejemplo.py es el nombre de la imagen que se desea analizar.
 
-5)cuando el script se ejecuta se desplegaran dos opciones de deteccion del banano,en estas el usuario debe ingresar
+5) cuando el script se ejecuta se desplegaran dos opciones de deteccion del banano,en estas el usuario debe ingresar
  si el banano fue detectado.
 
  opcion 1
