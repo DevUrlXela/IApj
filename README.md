@@ -29,7 +29,7 @@ ejemplo.py es el nombre de la imagen que se desea analizar.
 	el banano se detecto correctamente presionar si y cerrar la ventana que se desplego.
 	
  opcion 2
-	la deteccion no fue correcta presionar no y  cerrar ventaa
+	la deteccion no fue correcta presionar no y  cerrar ventana
 
  opcion 3
 	si la deteccion fallo dos veces ahora se presenta una tercera opcion esta es para que el usuario eliga que area del 
