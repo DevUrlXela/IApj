@@ -15,6 +15,7 @@ import pylab as pl
 from os import listdir
 import webcolors as webcolors
 import neurolab as nl
+import sys
 
 np.set_printoptions(suppress=True)
 global decision
@@ -27,6 +28,10 @@ blue=(0,0,255)
 
 net = nl.load('test.net')
 #a8
+
+inFile = sys.argv[1]
+with open(inFile,'r') as i:
+    lines = i.readlines()
 
 redcolors = (
 'lightsalmon',
