@@ -1,4 +1,5 @@
 import cv2
+import sys
 #import open cv
 import numpy as np
 #import numpy for scientific calculations
@@ -435,7 +436,7 @@ def cargarRed(val):
 
 
 global banana
-banana = cv2.imread('prueba.jpg')
+banana = cv2.imread(str(sys.argv[1]))
 
 
 try:
